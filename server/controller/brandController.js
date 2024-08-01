@@ -1,5 +1,4 @@
 import brands from "../model/brandModel.js";
-import loginmodel from "../model/loginModel.js";
  
 // get all brand data from databse
 
@@ -115,20 +114,5 @@ export const create = async (req, res) => {
   }
 };
 
-// simple admin login 
 
-export const login = async (req, res) => {
-  const { username, password } = req.body;
 
-  try {
-    const user = await loginmodel.findOne({ username, password }).exec();
-    if (user) {
-      res.json("success");
-    } else {
-      res.status(401).json({ msg: "Invalid username or password" });
-    }
-  } catch (error) {
-    console.error(error);
-    res.status(500).json({ msg: "Server error" });
-  }
-};

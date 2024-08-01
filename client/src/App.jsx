@@ -1,54 +1,24 @@
-import { useState } from "react";
 import "../src/App.css";
-import {
-  RouterProvider,
-  createBrowserRouter,
-  useNavigate,
-} from "react-router-dom";
+import { RouterProvider, createBrowserRouter } from "react-router-dom";
 import Brand from "./components/getbrand/Brand";
 import Add from "./components/addbrand/Add";
 import Update from "./components/updatebrand/Update";
-import Login from "./components/login/Login";
-import { Navigate } from "react-router-dom";
 
 function App() {
-  const [isLoggedIn, setIsLoggedIn] = useState(false);// isLoggedIn function check authentication
-
-  const handleLogin = () => {
-    setIsLoggedIn(true);
-  };
-
-  const handleLogout = () => {
-    setIsLoggedIn(false);
-    localStorage.removeItem("token");
-  };
-
   const route = createBrowserRouter([
     {
       path: "/",
-      element: <Brand onLogout={handleLogout} isLoggedIn={isLoggedIn} />,
+      element: <Brand />,
     },
     {
       path: "/add",
-      element: <PrivateRoutee isLoggedIn={isLoggedIn} />,
+      element: <Add />,
     },
     {
       path: "/update/:id",
-      element: <PrivateRoute isLoggedIn={isLoggedIn} />,
-    },
-    {
-      path: "/login",
-    
-      element: <Login onLogin={handleLogin} />,
+      element: <Update />,
     },
   ]);
-
-  function PrivateRoutee({ isLoggedIn }) {
-    return isLoggedIn ? <Add /> : <Navigate to="/login" />;
-  }
-  function PrivateRoute({ isLoggedIn }) {
-    return isLoggedIn ? <Update /> : <Navigate to="/login" />;
-  }
 
   return (
     <div>
